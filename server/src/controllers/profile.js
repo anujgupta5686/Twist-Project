@@ -1,6 +1,6 @@
 const User = require("../models/user");
 // Feed data/ get all users.
-exports.profiles = async (req, res) => {
+exports.getAllUsers = async (req, res) => {
   try {
     const data = await User.find({});
     if (!data) {
