@@ -16,7 +16,7 @@
 - Install axios
 - CORS - install cors in the backend => Add middleware to with configurations: origin, creadentials:true.
 - Whenever you are making API call so pass{withCredentials:true}
-
+- Install Redux Toolkit - https://redux-toolkit.js.org/tutorials/quick-start
   Body
   Navbar
   Router=/ =>Feed

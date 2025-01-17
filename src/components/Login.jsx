@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/constants";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState({
-    emailId: "",
-    password: "",
+    emailId: "anuj@gmail.com",
+    password: "anuj",
   });
+  const dispatch = useDispatch();
 
   const submitHandler = async () => {
     if (!data.emailId || !data.password) {
@@ -16,7 +22,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/auth/login",
+        BASE_URL + "/api/v1/auth/login",
         {
           emailId: data.emailId,
           password: data.password,
@@ -25,7 +31,10 @@ const Login = () => {
           withCredentials: true,
         }
       );
+
       if (response?.data?.status === true) {
+        dispatch(addUser(response?.data?.data));
+        navigate("/feed");
         toast.success(response.data?.message);
       } else {
         toast.error(response.data?.message || "Login failed");
