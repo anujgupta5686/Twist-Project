@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 
 const Login = () => {
+  const [errorHandle, setErrorHandle] = useState(false);
   const navigate = useNavigate();
   const [data, setData] = useState({
     emailId: "anuj@gmail.com",
@@ -16,11 +17,12 @@ const Login = () => {
 
   const submitHandler = async () => {
     if (!data.emailId || !data.password) {
-      toast.error("All fields are required");
+      setErrorHandle(true);
       return;
     }
 
     try {
+      setErrorHandle(false);
       const response = await axios.post(
         BASE_URL + "/api/v1/auth/login",
         {
@@ -71,6 +73,11 @@ const Login = () => {
               setData((prev) => ({ ...prev, password: e.target.value }))
             }
           />
+          {errorHandle && (
+            <p className="text-sm text-red-500 font-semibold">
+              All field are required
+            </p>
+          )}
           <div className="card-actions justify-center">
             <button className="btn btn-primary w-full" onClick={submitHandler}>
               Login

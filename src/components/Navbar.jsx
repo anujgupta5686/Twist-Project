@@ -1,34 +1,37 @@
-// import axios from "axios";
+import axios from "axios";
 import React from "react";
 import { GiHummingbird } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
-// import { BASE_URL } from "../utils/constants";
+import { BASE_URL } from "../utils/constants";
 import { Link, useNavigate } from "react-router-dom";
-// import { removeUser } from "../utils/userSlice";
+import { removeUser } from "../utils/userSlice";
+import toast from "react-hot-toast";
 const Navbar = () => {
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   console.log("User Data::", user);
-  // const logoutHandler = async () => {
-  //   try {
-  //     const response = await axios.post(BASE_URL + "/api/v1/auth/logout", {
-  //       withCredentials: true,
-  //     });
-  //     console.log("Res::", response);
-  //     dispatch(removeUser());
-  //   } catch (err) {
-  //     console.log("Error", err);
-  //     // if (err?.response?.status === 401) {
-  //     //   // toast.error(err?.response?.data?.message);
-  //     //   // navigate("/login");
-  //     // } else {
-  //     //   toast.error("Something went wrong");
-  //     //   // We can create something went wrong error page for this type of error.
-  //     //   // navigate("/login");
-  //     // }
-  //   }
-  // };
+  const logoutHandler = async () => {
+    try {
+      const response = await axios.post(
+        BASE_URL + "/api/v1/auth/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      dispatch(removeUser());
+      toast.success(response?.data?.message);
+      navigate("/login");
+    } catch (err) {
+      console.log("Error", err);
+      if (err?.response?.status === 401) {
+        toast.error(err?.response?.data?.message);
+      } else {
+        toast.error("Something went wrong");
+      }
+    }
+  };
   return (
     <>
       <div className="navbar bg-base-300 shadow-md px-5">
@@ -78,7 +81,7 @@ const Navbar = () => {
                 <li>
                   <a>Settings</a>
                 </li>
-                <li>
+                <li onClick={logoutHandler}>
                   <a>Logout</a>
                 </li>
               </ul>
