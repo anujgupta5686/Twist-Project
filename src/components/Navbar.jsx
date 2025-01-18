@@ -10,7 +10,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  console.log("User Data::", user);
   const logoutHandler = async () => {
     try {
       const response = await axios.post(

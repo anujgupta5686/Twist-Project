@@ -74,12 +74,14 @@ exports.updateUser = async (req, res) => {
     // }
 
     const ALLOWED_UPDATE = [
+      "firstName",
+      "lastName",
+      "emailId",
       "photoUrl",
-      "about",
       "gender",
       "age",
+      "about",
       "skills",
-      "password",
     ];
     const SKILL_LIMIT = 5;
 

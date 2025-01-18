@@ -10,6 +10,6 @@ const {
 
 router.get("/users", getAllUsers);
 router.get("/profile/view", auth, getUser);
-router.put("/user", auth, updateUser);
-router.delete("/user", auth, deleteUser);
+router.patch("/profile/edit", auth, updateUser);
+router.delete("/profile/delete", auth, deleteUser);
 module.exports = router;

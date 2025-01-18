@@ -20,7 +20,6 @@ const Body = () => {
       const response = await axios.get(BASE_URL + "/api/v1/profile/view", {
         withCredentials: true,
       });
-      console.log("Res::", response);
       dispatch(addUser(response?.data?.user));
     } catch (err) {
       console.log("Error", err);
